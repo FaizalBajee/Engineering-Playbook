@@ -36,11 +36,7 @@ npm install -D webpack webpack-cli webpack-dev-server
 ## 4️⃣ Install Babel (for JSX)
 
 ```bash
-npm install -D \
-@babel/core \
-@babel/preset-env \
-@babel/preset-react \
-babel-loader
+npm install -D @babel/core @babel/preset-env @babel/preset-react babel-loader
 ```
 
 ---
@@ -48,11 +44,7 @@ babel-loader
 ## 5️⃣ Install loaders & plugins
 
 ```bash
-npm install -D \
-html-webpack-plugin \
-css-loader \
-style-loader \
-file-loader
+npm install -D html-webpack-plugin css-loader style-loader file-loader
 ```
 
 ---
@@ -82,8 +74,12 @@ erp-client/
 
 ```json
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"]
+  "presets": [
+    ["@babel/preset-env"],
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ]
 }
+
 ```
 
 ---
@@ -171,6 +167,7 @@ root.render(<App />);
 ## 1️⃣1️⃣ App component (`src/App.jsx`)
 
 ```jsx
+import React from "react";
 export default function App() {
   return (
     <div>
