@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <script>
+      function handleChange(e) {
+        const count = Number(e.target.value);
+
+        const container = document.getElementById("container");
+        container.innerHTML = ""; // clear previous
+
+        const baseSize = 40;
+        const increase = 30;
+
+        // outermost circle (first one)
+        let parent = container;
+
+        for (let i = 1; i <= count; i++) {
+          const size = baseSize + (i - 1) * increase;
+
+          const circle = document.createElement("div");
+          circle.style.width = size + "px";
+          circle.style.height = size + "px";
+          circle.style.border = "2px solid black";
+          circle.style.borderRadius = "50%";
+
+          // IMPORTANT: The parent must be relative, child absolute
+          circle.style.position = "relative"; // all circles become parents
+
+          // If this is not the first circle → center it inside previous one
+          if (i > 1) {
+            circle.style.position = "absolute";
+            circle.style.top = "50%";
+            circle.style.left = "50%";
+            circle.style.transform = "translate(-50%, -50%)";
+          }
+
+          parent.appendChild(circle);
+
+          // this circle becomes the parent for the next one
+          parent = circle;
+        }
+      }
+    </script>
+
+    <style>
+      #container {
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <input type="number" onchange="handleChange(event)" />
+      <br /><br />
+      <div id="container" style="margin: 200px;"></div>
+    </div>
+  </body>
+</html>
