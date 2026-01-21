@@ -75,7 +75,7 @@ Module Federation is a Webpack 5 feature that allows developers to:
 - **Node.js** >= 14.0
 - **npm** >= 6.0
 - **Webpack** >= 5.0 (includes Module Federation)
-- **React** >= 16.8 (with Hooks)
+- **React** >= 18.2.0 (with Hooks)
 - **Babel** for JSX transpilation
 
 ### Development Tools
