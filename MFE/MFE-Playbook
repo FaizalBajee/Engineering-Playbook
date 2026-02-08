@@ -1,0 +1,17 @@
+Root Cause
+Your entry point (main.jsx) directly imports React at the top level, but the shared modules haven't finished initializing yet in a Module Federation setup.
+
+Solution: Bootstrap Pattern
+You need to restructure your entry points to defer React imports until after shared modules are ready. Here's the fix:
+
+
+✅ Bootstrap Pattern: 
+By moving React imports to bootstrap.jsx and using import() in main.jsx,
+you delay module loading until shared modules are initialized.
+
+✅ Enhanced Shared Config:
+singleton: true - Only one instance of React/React-DOM across all federated modules
+eager: false - Don't load immediately; wait for proper initialization
+requiredVersion: false - Allows version flexibility between remotes
+strictVersion: false - Won't error on version mismatches
+
