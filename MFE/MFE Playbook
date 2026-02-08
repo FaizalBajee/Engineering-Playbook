@@ -1,0 +1,10 @@
+✅ Bootstrap Pattern: 
+By moving React imports to bootstrap.jsx and using import() in main.jsx,
+you delay module loading until shared modules are initialized.
+
+✅ Enhanced Shared Config:
+singleton: true - Only one instance of React/React-DOM across all federated modules
+eager: false - Don't load immediately; wait for proper initialization
+requiredVersion: false - Allows version flexibility between remotes
+strictVersion: false - Won't error on version mismatches
+
