@@ -359,12 +359,3 @@ ssh -i mykey.pem ec2-user@<public-ip>
 > **An EC2 instance is a configurable cloud server where correct sizing, networking, and security decisions matter more than just launching it.**
 
 ---
-
-If you want next:
-
-* EC2 + Docker deployment
-* EC2 security best practices
-* EC2 vs ECS vs EKS
-* Terraform-based EC2 creation
-
-Just tell me 👍
