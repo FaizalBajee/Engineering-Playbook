@@ -33,7 +33,7 @@ RequirementVerification MethodEC2 instance is runningEC2 → Instance State = Ru
 
 This is the only command required when everything is configured correctly:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i "C:\Users\FAIZAL\Downloads\faizKey.pem" ubuntu@3.104.104.24   `
+`   ssh -i "C:\Users\FAIZAL\Downloads\faizKey.pem" ubuntu@3.104.104.24   `
 
 ### Command Breakdown
 
@@ -57,7 +57,7 @@ On Linux-based systems, SSH enforces strict key permissions.
 
 Set correct permissions:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   chmod 400 faizKey.pem   `
+`   chmod 400 faizKey.pem   `
 
 ### Why This Is Required
 
@@ -77,7 +77,7 @@ SSH refuses to use a key if:
 
 If permissions are incorrect, you will see:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Permissions 0644 for 'faizKey.pem' are too open.   `
+Permissions 0644 for 'faizKey.pem' are too open.
 
 On native Windows CMD, this check is usually not enforced strictly.On Linux systems, it is mandatory.
 
@@ -86,7 +86,7 @@ On native Windows CMD, this check is usually not enforced strictly.On Linux syst
 
 When connecting to a host for the first time, you will see:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Are you sure you want to continue connecting (yes/no)?   `
+`   Are you sure you want to continue connecting (yes/no)?   `
 
 This is SSH verifying the server fingerprint.
 
@@ -110,7 +110,7 @@ In enterprise environments, fingerprints should be verified before accepting.
 
 ### 1\. Permission Denied (Publickey)
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Permission denied (publickey)   `
+`   Permission denied (publickey)   `
 
 Causes:
 
@@ -147,7 +147,7 @@ Cause:
 
 Correct format:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i "C:\Path With Spaces\key.pem" ubuntu@IP   `
+`   ssh -i "C:\Path With Spaces\key.pem" ubuntu@IP   `
 
 7\. Username Reference by AMI
 -----------------------------
@@ -191,7 +191,7 @@ AWS automatically places the public key in authorized\_keys during instance crea
 
 If everything is configured correctly, only one command is required:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i key.pem username@public-ip   `
+`   ssh -i key.pem username@public-ip   `
 
 All other steps (permissions, security groups, fingerprint verification) exist to:
 
