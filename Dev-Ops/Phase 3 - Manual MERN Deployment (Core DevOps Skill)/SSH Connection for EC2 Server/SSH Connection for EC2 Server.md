@@ -1,99 +1,204 @@
-# Connecting to an AWS EC2 Instance Using SSH
+Connecting to an AWS EC2 Instance Using SSH
+===========================================
 
-## Table of Contents
-- [Prerequisites](#prerequisites)
-- [Step-by-Step Guide](#step-by-step-guide)
-- [Common Mistakes to Avoid](#common-mistakes-to-avoid)
-- [Key Takeaway](#key-takeaway)
+**Production-Grade Guide**
 
-## Prerequisites
+1\. Overview
+------------
 
-Before proceeding, ensure you have the following:
+Secure Shell (SSH) is used to remotely access Linux-based EC2 instances.Authentication is performed using an AWS-generated private key (.pem file) created at the time of instance launch.
 
-- ✅ EC2 instance is running
-- ✅ Private key file used during instance launch (e.g., `faizKey.pem`)
-- ✅ Port 22 (SSH) is allowed in the EC2 Security Group
-- ✅ Public IP address or Public DNS of your instance
-- ✅ Correct username for your AMI (e.g., `ubuntu` for Ubuntu AMI)
+A successful SSH connection requires:
 
-## Step-by-Step Guide
+*   Correct private key
+    
+*   Correct username (based on AMI)
+    
+*   Open port 22 in Security Group
+    
+*   Proper key file permissions
+    
+*   Correct public IP/DNS
+    
 
-### Step 1: Locate the Private Key
+2\. Prerequisites Checklist
+---------------------------
 
-Ensure the `.pem` file exists on your local machine.
+Before attempting connection, verify the following:
 
-**Example (Windows):**
-```
-C:\Users\FAIZAL\Downloads\faizKey.pem
-```
+RequirementVerification MethodEC2 instance is runningEC2 → Instance State = RunningPublic IP or Public DNS availableEC2 → Networking tabPort 22 allowedSecurity Group → Inbound RulesPrivate key file availableConfirm .pem exists locallyCorrect AMI usernameUbuntu → ubuntu, Amazon Linux → ec2-user
 
-### Step 2: Fix Key Permissions (Mandatory)
+3\. Standard SSH Command (Recommended Method)
+---------------------------------------------
 
-SSH will reject insecure keys. You must set proper permissions on your private key file.
+This is the only command required when everything is configured correctly:
 
-**On Linux / WSL / Git Bash:**
-```bash
-chmod 400 faizKey.pem
-```
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i "C:\Users\FAIZAL\Downloads\faizKey.pem" ubuntu@3.104.104.24   `
 
-**Why this is important:**
-- `400` = read-only for owner
-- Prevents others from accessing your private key
-- SSH refuses keys that are publicly accessible
+### Command Breakdown
 
-### Step 3: First SSH Attempt (Without Key – Expected to Fail)
+*   ssh → Secure Shell client
+    
+*   \-i → Specifies the private key file
+    
+*   faizKey.pem → Your AWS key pair file
+    
+*   ubuntu → Default username for Ubuntu AMI
+    
+*   3.104.104.24 → Public IP of EC2 instance
+    
 
-```bash
-ssh ubuntu@3.104.104.24
-```
+If configured properly, connection will succeed immediately.
 
-**What happens:**
-- You receive a host authenticity prompt (expected on first connection)
-- After typing `yes`, the host is added to `known_hosts`
-- Connection fails with: `Permission denied (publickey)`
+4\. Key Permission Requirements (Linux / WSL / Git Bash)
+--------------------------------------------------------
 
-**Reason:**
-- You didn't provide the private key using the `-i` option
+On Linux-based systems, SSH enforces strict key permissions.
 
-### Step 4: Correct SSH Command (Success)
+Set correct permissions:
 
-```bash
-ssh -i "C:\Users\FAIZAL\Downloads\faizKey.pem" ubuntu@3.104.104.24
-```
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   chmod 400 faizKey.pem   `
 
-**Result:**
-- ✅ SSH client authenticates using your private key
-- ✅ Server accepts the key
-- ✅ Login successful
+### Why This Is Required
 
-### Step 5: First-Time Connection Message Explanation
+SSH refuses to use a key if:
 
-```
-Are you sure you want to continue connecting (yes/no)?
-```
+*   It is accessible by other users
+    
+*   It has write permissions enabled
+    
 
-This prompt appears only when:
-- You connect to a host for the first time
-- The server is not already in your `known_hosts` file
+400 means:
 
-After typing `yes`, SSH remembers the server fingerprint. You won't see this prompt again unless:
-- The server's IP address changes
-- The server is rebuilt
-- The `known_hosts` entry is manually removed
+*   Read-only for owner
+    
+*   No permissions for group or others
+    
 
-## Common Mistakes to Avoid
+If permissions are incorrect, you will see:
 
-| Mistake | Issue |
-|---------|-------|
-| ❌ Using `ssh ubuntu@IP` without `-i key.pem` | No key provided for authentication |
-| ❌ Wrong username (e.g., `ec2-user` vs `ubuntu`) | Authentication fails |
-| ❌ Incorrect file path to `.pem` file | Key file not found |
-| ❌ Incorrect permissions on key file | SSH refuses to use the key |
-| ❌ Port 22 blocked in Security Group | Cannot establish connection |
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Permissions 0644 for 'faizKey.pem' are too open.   `
 
-## Key Takeaway
+On native Windows CMD, this check is usually not enforced strictly.On Linux systems, it is mandatory.
 
-**If you get "Permission denied (publickey)" — you either:**
-1. Forgot to include the key (`-i` option)
-2. Used the wrong key file
-3. Used the wrong username
+5\. First-Time Connection Behavior
+----------------------------------
+
+When connecting to a host for the first time, you will see:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Are you sure you want to continue connecting (yes/no)?   `
+
+This is SSH verifying the server fingerprint.
+
+After typing yes:
+
+*   ~/.ssh/known\_hosts
+    
+*   You will not see this prompt again unless:
+    
+    *   The server is rebuilt
+        
+    *   The IP changes
+        
+    *   The fingerprint changes
+        
+
+In enterprise environments, fingerprints should be verified before accepting.
+
+6\. Common Failure Scenarios
+----------------------------
+
+### 1\. Permission Denied (Publickey)
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Permission denied (publickey)   `
+
+Causes:
+
+*   Wrong username
+    
+*   Wrong key file
+    
+*   Key not provided with -i
+    
+*   Instance launched with different key pair
+    
+
+### 2\. Connection Timed Out
+
+Cause:
+
+*   Port 22 blocked in Security Group
+    
+*   Wrong public IP
+    
+*   Network ACL blocking traffic
+    
+
+Check:EC2 → Security Group → Inbound → SSH → Port 22 → Source
+
+### 3\. Key File Not Found
+
+Cause:
+
+*   Incorrect file path
+    
+*   Quotation marks missing when path contains spaces
+    
+
+Correct format:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i "C:\Path With Spaces\key.pem" ubuntu@IP   `
+
+7\. Username Reference by AMI
+-----------------------------
+
+AMI TypeDefault UsernameUbuntuubuntuAmazon Linuxec2-userRHELec2-userDebianadminCentOScentos
+
+Using the wrong username results in authentication failure.
+
+8\. Security Best Practices (Production Environments)
+-----------------------------------------------------
+
+A senior DevOps approach includes:
+
+*   Source: My IPNot:0.0.0.0/0
+    
+*   Never share .pem files
+    
+*   Never commit keys to Git
+    
+*   Rotate key pairs periodically
+    
+*   Use Bastion Host or SSM Session Manager for production
+    
+
+9\. Internal SSH Authentication Flow (How It Actually Works)
+------------------------------------------------------------
+
+1.  SSH client sends public key fingerprint
+    
+2.  /home/ubuntu/.ssh/authorized\_keys
+    
+3.  If match found → authentication succeeds
+    
+4.  If no match → access denied
+    
+
+AWS automatically places the public key in authorized\_keys during instance creation.
+
+10\. Final Summary
+------------------
+
+If everything is configured correctly, only one command is required:
+
+Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   ssh -i key.pem username@public-ip   `
+
+All other steps (permissions, security groups, fingerprint verification) exist to:
+
+*   Enforce security
+    
+*   Prevent misconfiguration
+    
+*   Troubleshoot failures
+    
+*   Meet production standards
