@@ -22,6 +22,10 @@ Moves files or folders, or renames them.
 
 Deletes files or folders permanently.
 
+### pwd
+
+To Find path
+
 ---
 
 # Process Commands – What is What
