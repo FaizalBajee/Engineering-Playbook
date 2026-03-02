@@ -101,14 +101,19 @@ Let’s say we host a company website.
 Step 1: Create VPC (Network)
 ----------------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   CIDR: 10.0.0.0/16   `
+`   CIDR: 10.0.0.0/16   `
 
 This creates a private network with 65,000 IPs.
 
 Step 2: Create Subnets
 ----------------------
 
-SubnetCIDRPurposePublic Subnet10.0.1.0/24Web ServerPrivate Subnet10.0.2.0/24App ServerPrivate DB Subnet10.0.3.0/24Database
+| Subnet            | CIDR        | Purpose    |
+| ----------------- | ----------- | ---------- |
+| Public Subnet     | 10.0.1.0/24 | Web Server |
+| Private Subnet    | 10.0.2.0/24 | App Server |
+| Private DB Subnet | 10.0.3.0/24 | Database   |
+
 
 Step 3: Attach Internet Gateway
 -------------------------------
@@ -120,7 +125,7 @@ Step 4: Configure Route Table
 
 ### Public Subnet Route:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   0.0.0.0/0 → Internet Gateway   `
+`   0.0.0.0/0 → Internet Gateway   `
 
 Now Web Server can access internet.
 
@@ -133,14 +138,38 @@ So App & DB are protected.
 Final Architecture
 ------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   Internet     |  [Internet Gateway]     |  [Public Subnet]     |   Web EC2 (Public IP)     |  [Private Subnet]     |   App EC2 (Private IP only)     |  [Private DB Subnet]     |   Database (Private IP only)   `
+Internet
+   |
+[Internet Gateway]
+   |
+[Public Subnet]
+   |
+ Web EC2 (Public IP)
+   |
+[Private Subnet]
+   |
+ App EC2 (Private IP only)
+   |
+[Private DB Subnet]
+   |
+ Database (Private IP only)
+
 
 🔥 Simple Difference Summary
 ============================
 
-ConceptSimple MeaningNetwork (VPC)Your private office networkSubnetA room inside officePrivate IPInternal communication onlyPublic IPInternet reachableIGWRouter connecting to internetRoute TableTraffic direction controllerEC2Virtual computer inside network
+| Concept       | Simple Meaning                    |
+| ------------- | --------------------------------- |
+| Network (VPC) | Your private office network       |
+| Subnet        | A room inside the office          |
+| Private IP    | Internal communication only       |
+| Public IP     | Internet reachable                |
+| IGW           | Router connecting to the internet | - internet gateway
+| Route Table   | Traffic direction controller      |
+| EC2           | Virtual computer inside network   |
 
-🚀 One-Line Senior Summary
+
+🚀 One-Line Summary
 ==========================
 
-> VPC is the private network, Subnet is its division, IGW connects it to internet, Route table controls traffic, and EC2 runs inside this structure with private or public IP based on design.
+> VPC is the private network, Subnet is its division, IGW(internet gateway) connects it to internet, Route table controls traffic, and EC2 runs inside this structure with private or public IP based on design.
