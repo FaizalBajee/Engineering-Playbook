@@ -138,21 +138,21 @@ So App & DB are protected.
 ## Final Architecture
 ------------------
 
-Internet
-|
-[Internet Gateway]
-|
-[Public Subnet]
-|
-Web EC2 (Public IP)
-|
-[Private Subnet]
-|
-App EC2 (Private IP only)
-|
-[Private DB Subnet]
-|
-Database (Private IP only)
+Internet  
+|  
+[Internet Gateway]  
+|  
+[Public Subnet]  
+|  
+Web EC2 (Public IP)  
+|  
+[Private Subnet]  
+|  
+App EC2 (Private IP only)  
+|  
+[Private DB Subnet]  
+|  
+Database (Private IP only)  
  
 
 
