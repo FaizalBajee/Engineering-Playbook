@@ -135,24 +135,25 @@ No direct IGW route.
 
 So App & DB are protected.
 
-Final Architecture
+## Final Architecture
 ------------------
 
 Internet
-   |
+|
 [Internet Gateway]
-   |
+|
 [Public Subnet]
-   |
- Web EC2 (Public IP)
-   |
+|
+Web EC2 (Public IP)
+|
 [Private Subnet]
-   |
- App EC2 (Private IP only)
-   |
+|
+App EC2 (Private IP only)
+|
 [Private DB Subnet]
-   |
- Database (Private IP only)
+|
+Database (Private IP only)
+ 
 
 
 🔥 Simple Difference Summary
