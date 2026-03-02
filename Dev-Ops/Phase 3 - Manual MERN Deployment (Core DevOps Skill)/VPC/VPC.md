@@ -1,5 +1,3 @@
-Here is a **short, clear, senior-level explanation** in the structure you asked:
-
 📘 EC2 & VPC – Scenario + Technical Explanation
 ===============================================
 
