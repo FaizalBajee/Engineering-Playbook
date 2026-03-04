@@ -8,15 +8,15 @@ In simple terms:
 👉 Outer functions cannot access variables inside inner functions.
  */
 
-function outer() {
-  let a = 10;
+// function outer() {
+//   let a = 10;
 
-  function inner() {
-    console.log(a); // accessible due to lexical scope
-  }
+//   function inner() {
+//     console.log(a); // accessible due to lexical scope
+//   }
 
-  inner();
-}
+//   inner();
+// }
 
 
 /**
@@ -38,9 +38,35 @@ function counter() {
 
 const increment = counter();
 
+increment(); // 1
+increment(); // 2
+increment(); // 3
+increment(); // 4
+increment(); // 5
 
-increment(); // 2
-increment(); // 2
-increment(); // 2
-increment(); // 2
-increment(); // 2
+console.log("--------------------------------------------------------------")
+
+function bankAccount(){
+
+  let balance = 0;
+
+  return {
+    deposit: function(amount){
+      balance = balance + amount;
+    },
+    withdraw: function(amount){
+      balance = balance - amount;
+    },
+    getBalance: function(){
+      return balance;
+    }
+  }
+}
+
+const account = bankAccount();
+
+account.deposit(100);
+account.deposit(50);
+account.withdraw(30);
+
+console.log(account.getBalance()); // 120
