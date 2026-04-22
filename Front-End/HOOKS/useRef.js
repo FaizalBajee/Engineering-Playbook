@@ -101,3 +101,17 @@ function ProductForm({ fieldErrors }) {
 }
 
 export default ProductForm;
+
+//ref is used to directly access a DOM element
+//<div ref={myRef}></div>
+//Now myRef can access this <div> element.
+
+//useRef() is used to store a value that does NOT reset on re-render. //const observer = useRef();
+
+
+const myRef = useRef(null);
+
+myRef.current = "Hello";
+
+console.log(myRef.current);
+
