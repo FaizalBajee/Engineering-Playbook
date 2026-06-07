@@ -13,15 +13,19 @@ const useInfiniteScroll = (fetchFunction, hasMore) => {
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (entries[0].isIntersecting && hasMore && !loading) {
           setPage((prev) => prev + 1);
         }
       });
 
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [loading, hasMore],
   );
+
+  useEffect(() => {
+    return () => observer.current?.disconnect();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +40,7 @@ const useInfiniteScroll = (fetchFunction, hasMore) => {
   return {
     lastElementRef,
     loading,
-    page
+    page,
   };
 };
 
