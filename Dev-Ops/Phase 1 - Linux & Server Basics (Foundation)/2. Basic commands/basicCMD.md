@@ -42,6 +42,26 @@ Displays running processes in real time along with CPU and memory usage.
 
 Stops (terminates) a running process using its Process ID (PID).
 
+### nono
+
+Open or create a file:
+
+Basic shortcuts
+
+Ctrl + O → Save
+
+Ctrl + X → Exit
+
+Ctrl + K → Cut line
+
+Ctrl + U → Paste
+
+Ctrl + W → Search
+
+### cat
+
+check a file
+
 ---
 
 # File Permissions – What is What
